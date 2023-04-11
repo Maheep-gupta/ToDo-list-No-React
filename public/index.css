@@ -1,7 +1,7 @@
 .container-resize{
     position: relative;
     left: 50%;
-    width: 500px;
+    width: 550px;
 }
 .close-btn{
     float: right;}
@@ -9,6 +9,7 @@ span{
     width: 150px;
     position: relative;
     top: -1px;
+    left: 2px;
 }
 .delete{
     display: inline-block;

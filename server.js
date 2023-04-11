@@ -6,41 +6,44 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set(`view engine`, `ejs`);
 app.use(express.static('public'))
 
-var taskItems = ["eat apple","study for 2hr"];
+var taskItems = [];
 app.get("/", function (req, res) {
     //get full date
     var today = new Date();
     //set the current date to an integer (saturday==6)
     var options = {
         weekday: "long",
-        day:     "numeric",
-        month:   "long",
-        year:"numeric"
+        day: "numeric",
+        month: "long",
+        year: "numeric"
     };
     var day = today.toLocaleDateString(`en-US`, options);
-
-    res.render(`index`, { newListItems: taskItems,today:day});
+    res.render(`index`, { newListItems: taskItems, today: day });
 }
 );
 
 app.post("/", function (req, res) {
     var item = req.body.task;
     console.log(item)
-    if (item!="") {
+    if (item != "") {
+        const firstLetter = item.charAt(0)
+
+        const firstLetterCap = firstLetter.toUpperCase()
+
+        const remainingLetters = item.slice(1)
+
+        item = firstLetterCap + remainingLetters
         taskItems.push(item)
     }
+
     res.redirect("/")
 
 }
 );
-app.post("/delete",(req,res)=>{
-    var close=req.body;
-    var close2=req.params['id'];
-
-    taskItems.pop(taskItems[0])
-    // console.log(close)
-    console.log(close)
-    res.redirect("/")
+app.post("/delete", (req, res) => {
+    console.log(req.body.index);
+    taskItems.splice(req.body.index, 1);
+    res.send(200)
 });
 
 

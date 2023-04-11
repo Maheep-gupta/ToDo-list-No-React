@@ -1,7 +1,7 @@
 
 
 function checkboxClicked() {
-    var targetElement=event.target.id
+    let targetElement = event.target.id
     console.log(targetElement)
     var checkbox = document.getElementById(targetElement).checked
 
@@ -9,7 +9,16 @@ function checkboxClicked() {
     if (checkbox) {
         document.getElementById(targetElement).parentElement.classList.add("text-decoration-line-through")
     }
-    else{
+    else {
         document.getElementById(targetElement).parentElement.classList.remove("text-decoration-line-through")
     }
+}
+function deleteTask(i) {
+    $.ajax({
+        type: "post",
+        url: "/delete",
+        data: {index:i},
+        dataType: "json"
+    }).done(window.location.href="/");
+
 }
